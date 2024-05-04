@@ -15,6 +15,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class TrabajoMain {
+	public static final int[][] kernel1 = {
+	        {1, 2, 3},
+	        {4, 5, 6},
+	        {7, 8, 9}
+	    };
+	public static final int[][] kernel2 = {
+	        {1, 2, 3},
+	        {4, 5, 6},
+	        {7, 8, 9}
+	    };
+	public static final int[][] kernel3 = {
+	        {1, 2, 3},
+	        {4, 5, 6},
+	        {7, 8, 9}
+	    };
+	public static final int[][] kernel4 = {
+	        {1, 2, 3},
+	        {4, 5, 6},
+	        {7, 8, 9}
+	    };
+	public static final int[][] kernel5 = {
+	        {1, 2, 3},
+	        {4, 5, 6},
+	        {7, 8, 9}
+	    };
 
     public static void main(String[] args) {
         try {
@@ -46,6 +71,7 @@ public class TrabajoMain {
                     matrizRGB[i][j][2] = pixel & 0xff;
                 }
             }
+            //creacion de kernel
             System.out.println("Presione ENTER para mostrar imagen RGB (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
             mostrarMatrizImagenRGB(matrizRGB);
@@ -66,13 +92,34 @@ public class TrabajoMain {
             stringImagen = in.nextLine();
             int[][] matrizGrises = escalaDeGrises(matrizRGB);
             clearScreen();
-            System.out.println("Programa finalizado.");
+            int indice;
+            //eleccion de kernel
+            System.out.println("Ingrese filtro a aplicar: ");
+            System.out.println("1- WWWW ");
+            System.out.println("2- XXXX ");
+            System.out.println("3- YYYY ");
+            System.out.println("4- ZZZZ ");
+            System.out.println("5- MMMM ");
+            indice = in.nextInt();
+            switch (indice) {
+            case 1 : mostrarKernel(matrizGrises,kernel1);break;
+            case 2 : mostrarKernel(matrizGrises,kernel2);break;
+            case 3 : mostrarKernel(matrizGrises,kernel3);break;
+            case 4 : mostrarKernel(matrizGrises,kernel4);break;
+            case 5 : mostrarKernel(matrizGrises,kernel5);break;
+            default: System.out.println("ERROR");break;
+            }
             in.close();
+            System.out.println("Programa finalizado.");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+    
+    private static void mostrarKernel(int[][] matrizGris, int[][] kernel) {
+    	
     }
 
     private static int[][] escalaDeGrises(int[][][] matrizRGB) {
