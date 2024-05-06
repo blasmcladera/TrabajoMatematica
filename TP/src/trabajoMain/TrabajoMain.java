@@ -381,16 +381,17 @@ public class TrabajoMain {
     }
     
     public static void clearScreen() {
-        // Limpia la consola utilizando comandos específicos para sistemas operativos
-        try {
-            if (System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            else
-                Runtime.getRuntime().exec("clear");
-        } catch (IOException | InterruptedException e) {
-            // Maneja cualquier excepción que pueda ocurrir al limpiar la consola
-            e.printStackTrace();
-        }
+    // Limpia la consola utilizando comandos específicos para sistemas operativos
+    try {
+        if (System.getProperty("os.name").contains("Windows"))
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        else
+            new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+    } catch (IOException | InterruptedException e) {
+        // Maneja cualquier excepción que pueda ocurrir al limpiar la consola
+        e.printStackTrace();
     }
+}
+
 
 }
