@@ -15,30 +15,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class TrabajoMain {
-	public static final int[][] kernel1 = {
-	        {1, 2, 3},
-	        {4, 5, 6},
-	        {7, 8, 9}
+	//valores de los kernels: https://visualize-it.github.io/image_filters/simulation.html#:~:text=Every%20image%20can%20be%20represented%20by%20a%20superposition,the%20kernel%20matrix%20to%20get%20the%20%27filtered%27%20image.
+	public static final double[][] Box_blur = {
+	        {0.111, 0.111, 0.111},
+	        {0.111, 0.111, 0.111},
+	        {0.111, 0.111, 0.111}
 	    };
-	public static final int[][] kernel2 = {
-	        {1, 2, 3},
-	        {4, 5, 6},
-	        {7, 8, 9}
+	public static final double[][] Gaussian_blur = {
+	        {0.0625, 0.1250, 0.0625},
+	        {0.1250, 0.25, 0.1250},
+	        {0.0625, 0.1250, 0.0625}
 	    };
-	public static final int[][] kernel3 = {
-	        {1, 2, 3},
-	        {4, 5, 6},
-	        {7, 8, 9}
+	public static final double[][] Sharpen = {
+	        {-1, -1,-1},
+	        {-1, 9,-1},
+	        {-1, -1,-1}
 	    };
-	public static final int[][] kernel4 = {
-	        {1, 2, 3},
-	        {4, 5, 6},
-	        {7, 8, 9}
+	public static final double[][] Emboss = {
+	        {-2, -1, 0},
+	        {-1, 1, 1},
+	        {0, 1, 2}
 	    };
-	public static final int[][] kernel5 = {
-	        {1, 2, 3},
-	        {4, 5, 6},
-	        {7, 8, 9}
+	public static final double[][] Edge_detection = {
+			{-1, -1,-1},
+	        {-1, 8,-1},
+	        {-1, -1,-1}
 	    };
 
     public static void main(String[] args) {
@@ -48,6 +49,7 @@ public class TrabajoMain {
             //Desde la consola ingreso ruta del archivo.
             System.out.println("Ingrese ruta de la imagen: ");
             String stringImagen = in.nextLine();
+            clearScreen();
             String output = (stringImagen.replaceAll("'", "")).replaceAll(" ", "");
             File imagen = new File(output);
             BufferedImage image = ImageIO.read(imagen);
@@ -74,39 +76,43 @@ public class TrabajoMain {
             //creacion de kernel
             System.out.println("Presione ENTER para mostrar imagen RGB (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
-            mostrarMatrizImagenRGB(matrizRGB);
             clearScreen();
+            mostrarMatrizImagenRGB(matrizRGB);
             System.out.println("Presione ENTER para mostrar imagen en escala de grises canal ROJO (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
-            mostrarMatrizImagenRojo(matrizRGB);
             clearScreen();
+            mostrarMatrizImagenRojo(matrizRGB);
             System.out.println("Presione ENTER para mostrar imagen en escala de grises canal VERDE (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
-            mostrarMatrizImagenVerde(matrizRGB);
             clearScreen();
+            mostrarMatrizImagenVerde(matrizRGB);
             System.out.println("Presione ENTER para mostrar imagen en escala de grises canal AZUL (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
-            mostrarMatrizImagenAzul(matrizRGB);
             clearScreen();
+            mostrarMatrizImagenAzul(matrizRGB);
             System.out.println("Presione ENTER para mostrar imagen en escala de grises PROMEDIO (cerrar imagen con tecla ENTER): ");
             stringImagen = in.nextLine();
-            int[][] matrizGrises = escalaDeGrises(matrizRGB);
             clearScreen();
+            int[][] matrizGrises = escalaDeGrises(matrizRGB);
             int indice;
             //eleccion de kernel
             System.out.println("Ingrese filtro a aplicar: ");
-            System.out.println("1- WWWW ");
-            System.out.println("2- XXXX ");
-            System.out.println("3- YYYY ");
-            System.out.println("4- ZZZZ ");
-            System.out.println("5- MMMM ");
+            System.out.println("0- Salir");
+            System.out.println("1- Box blur ");
+            System.out.println("2- Gaussian blur ");
+            System.out.println("3- Sharpen ");
+            System.out.println("4- Emboss ");
+            System.out.println("5- Edge detection ");
+            System.out.println("6- Personalizado");
             indice = in.nextInt();
+            clearScreen();
             switch (indice) {
-            case 1 : mostrarKernel(matrizGrises,kernel1);break;
-            case 2 : mostrarKernel(matrizGrises,kernel2);break;
-            case 3 : mostrarKernel(matrizGrises,kernel3);break;
-            case 4 : mostrarKernel(matrizGrises,kernel4);break;
-            case 5 : mostrarKernel(matrizGrises,kernel5);break;
+            case 1 : mostrarKernel(matrizGrises,Box_blur);break;
+            case 2 : mostrarKernel(matrizGrises,Gaussian_blur);break;
+            case 3 : mostrarKernel(matrizGrises,Sharpen);break;
+            case 4 : mostrarKernel(matrizGrises,Emboss);break;
+            case 5 : mostrarKernel(matrizGrises,Edge_detection);break;
+            case 6 : mostrarKernel(matrizGrises,in);break;
             default: System.out.println("ERROR");break;
             }
             in.close();
@@ -118,8 +124,39 @@ public class TrabajoMain {
 
     }
     
-    private static void mostrarKernel(int[][] matrizGris, int[][] kernel) {
+    private static void mostrarKernel(int[][] matrizGris, double[][] kernel) {
     	
+    }
+    
+    private static void mostrarKernel(int[][] matrizGris, Scanner in) {
+    	double[][] kernel ={
+    		{0, 0, 0},
+    		{0, 0, 0},
+    		{0, 0, 0}
+    	};
+    	for (int i =0;i<3;i++) {
+    		for (int j =0;j<3;j++) {
+    			for (int q =0;q<3;q++) {
+    				System.out.print("{");
+    				for (int k =0;k<3;k++) {
+    					System.out.print(" "+kernel[q][k]+" ");
+    				}
+    				System.out.print("}");
+    				System.out.println("");
+    			}
+    			kernel [i][j] =in.nextDouble();
+    			clearScreen();
+    		}
+    	}
+    	for (int q =0;q<3;q++) {
+			System.out.print("{");
+			for (int k =0;k<3;k++) {
+				System.out.print(" "+kernel[q][k]+" ");
+			}
+			System.out.print("}");
+			System.out.println("");
+    	}
+    	mostrarKernel(matrizGris, kernel);
     }
 
     private static int[][] escalaDeGrises(int[][][] matrizRGB) {
