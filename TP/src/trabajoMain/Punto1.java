@@ -7,25 +7,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.Scanner;
 
-public class Tp2 {
+public class Punto1 {
 	
-	public static final double[][] Emboss = {
-	        {-2, -1, 0},
-	        {-1, 1, 1},
-	        {0, 1, 2}
-	    };
 	
-	public static final double[][] Sobel = {
-	        {-1, 0, 1},
-	        {-2, 0, 2},
-	        {-1, 0, 1}
-	    };
-	
-	public static final double[][] Sharpen = {
-			{-1, -1,-1},
-	        {-1, 9,-1},
-	        {-1, -1,-1}
-	    };
 	
 
 	public static void main(String[] args) {
@@ -66,22 +50,7 @@ public class Tp2 {
 		
 		File imagenGrises = new File("imagenGrises.jpg");
 		ImageIO.write(imagenNueva, "jpg", imagenGrises);
-		
-		double [][] matrizFiltro = convolucion(matrizGrises,Sobel,alto,ancho);
-		
-		BufferedImage matrizFiltrada = new BufferedImage(ancho-1,alto-1,BufferedImage.TYPE_INT_RGB);
-		
-		for (int i=0;i<alto-1;i++) {
-			for (int j =0; j<ancho-1; j++) {
-				Color gris = new Color((int)matrizFiltro[i][j],(int)matrizFiltro[i][j],(int)matrizFiltro[i][j]);
-				matrizFiltrada.setRGB(j, i,gris.getRGB());
-			}
-		}
-		
-		File imagenFiltrada = new File("imagenFiltrada.jpg");
-		ImageIO.write(matrizFiltrada, "jpg", imagenFiltrada);
-		
-		
+		System.out.println("fin");
 		in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
